@@ -24,9 +24,11 @@ const Register = () => {
           console.log( user.email)
           console.log(user.password)
           axios.post("https://localhost:8080/account/register",user)
-          .then(function (response) {
+           .then((response) => {
             console.log(response);
-          })
+          },(error) => {
+            console.log(error);
+          });
     }
     const validationSchema = Yup.object().shape({
         fname: Yup.string()
