@@ -1,6 +1,6 @@
 package com.target.VolunteeringPlatform.SecurityConfig;
 
-import com.target.VolunteeringPlatform.Service.UserServiceImpl;
+import com.target.VolunteeringPlatform.Service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,63 +12,36 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
-
-import javax.sql.DataSource;
-
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    private DataSource dataSource;
-
-    private final String USERS_QUERY = "select email, password, active from user where email=?";
-    private final String ROLES_QUERY = "select u.email, r.role from user u inner join user_role ur on (u.id = ur.user_id) inner join role r on (ur.role_id=r.role_id) where u.email=?";
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return  new BCryptPasswordEncoder();
-    }
+    UserDetailsServiceImpl userDetailsService;
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .usersByUsernameQuery(USERS_QUERY)
-                .authoritiesByUsernameQuery(ROLES_QUERY)
-                .dataSource(dataSource)
-                .passwordEncoder(bCryptPasswordEncoder);
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/logout").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/register").permitAll()
-                // .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**").hasAuthority("USER")
-                .anyRequest()
-                .authenticated()
-                .and().csrf().disable()
-                .rememberMe()
-                .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(60*60)
-                .and().exceptionHandling();
-        //.accessDeniedPage("/access_denied");
+    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    public PersistentTokenRepository persistentTokenRepository() {
-        JdbcTokenRepositoryImpl db = new JdbcTokenRepositoryImpl();
-        db.setDataSource(dataSource);
-        return db;
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+                .exceptionHandling().and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests().antMatchers("/account/**").permitAll()
+                .antMatchers("/user**").hasAuthority("USER")
+                .anyRequest().authenticated();
     }
 }
-

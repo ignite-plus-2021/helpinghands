@@ -9,15 +9,16 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="user_id")
     private int id;
 
     @Column(name = "email")
     private String email;
 
-    @Column(name = "firstname")
+    @Column(name = "first_name")
     private String firstname;
 
-    @Column(name = "lastname")
+    @Column(name = "last_name")
     private String lastname;
 
     @Column(name = "password")
@@ -33,6 +34,7 @@ public class User {
     private Set<Role> roles;
 
     public User(String email, String firstname, String lastname, String password) {
+        super();
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -50,6 +52,7 @@ public class User {
     public String getEmail() {
         return email;
     }
+
 
     public void setEmail(String email) {
         this.email = email;
@@ -87,10 +90,22 @@ public class User {
         this.active = active;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", password='" + password + '\'' +
+                ", active=" + active +
+                ", roles=" + roles +
+                '}';
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
-
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
