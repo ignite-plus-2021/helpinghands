@@ -23,9 +23,9 @@ const Register = () => {
           console.log( user.lname)
           console.log( user.email)
           console.log(user.password)
-          axios.post("https://localhost:8080/account/register",user)
+          axios.post("http://localhost:8081/account/register",user)
            .then((response) => {
-            console.log(response);
+            console.log(response.data);
           },(error) => {
             console.log(error);
           });
