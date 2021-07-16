@@ -1,4 +1,4 @@
-export const getUser=()=>{
+/*export const getUser=()=>{
     const userStr=sessionStorage.getItem("user");
     if(userStr) return JSON.parse(userStr);
     else return null;
@@ -13,4 +13,4 @@ export const getUser=()=>{
     export const removeUserSession=()=>{
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("user");
-    }
+    }*/
