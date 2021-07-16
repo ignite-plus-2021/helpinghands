@@ -6,10 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -33,10 +30,9 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 	public static UserDetailsImpl build(User user) {
-
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority("USER"));
-		
+			authorities.add(new SimpleGrantedAuthority("USER"));
+
 		return new UserDetailsImpl(
 				user.getId(),
 				user.getEmail(),
@@ -95,5 +91,15 @@ public class UserDetailsImpl implements UserDetails {
 			return false;
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
+	}
+
+	@Override
+	public String toString() {
+		return "UserDetailsImpl{" +
+				"id=" + id +
+				", email='" + email + '\'' +
+				", password='" + password + '\'' +
+				", authorities=" + authorities +
+				'}';
 	}
 }
