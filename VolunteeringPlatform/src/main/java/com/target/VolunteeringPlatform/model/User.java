@@ -1,7 +1,6 @@
 package com.target.VolunteeringPlatform.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -27,10 +26,8 @@ public class User {
     @Column(name = "active")
     private int active;
 
-    @ManyToMany(cascade=CascadeType.ALL)
-    @JoinTable(name="user_role", joinColumns=@JoinColumn(name="user_id"),
-            inverseJoinColumns=@JoinColumn(name="role_id"))
-    private Set<Role> roles;
+    @Column(name="role")
+    private String role;
 
     public User() {
 
@@ -92,6 +89,14 @@ public class User {
         this.active = active;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -101,14 +106,8 @@ public class User {
                 ", lastname='" + lastname + '\'' +
                 ", password='" + password + '\'' +
                 ", active=" + active +
-                ", roles=" + roles +
+                ", roles=" + role +
                 '}';
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 }
