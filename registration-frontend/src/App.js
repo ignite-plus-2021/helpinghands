@@ -5,7 +5,12 @@ import Register from './Components/Register';
 function App() {
   return (
    
-      <Register></Register>
+     <Router>
+    <Switch>
+	  <Route exact path='/'  component={Register}/>
+		<Route exact path='/login' component={login} />
+		</Switch>
+    </Router>
       );
    
   }
