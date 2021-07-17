@@ -1,9 +1,11 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { Grid, Paper, Typography, TextField, Button } from '@material-ui/core';
 import logo from './logo.jpg';
 import { Form, Formik, ErrorMessage, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+
 
 const Register = () => {
     const paperStyle = { padding: '30px 20px', width: 300, margin: '20px auto', border: "solid black" }
@@ -11,30 +13,55 @@ const Register = () => {
     const marginTop = { margin: 15 }
     const formStyle = { textAlign: 'center' }
     const initialValues = {
-        fname: '',
-        lname: '',
+        firstname: '',
+        lastname: '',
         email: '',
         password: '',
         confirmpassword: ''
     }
-    const onSubmit = (values, probs) => {
-          const user= Object.create(values)
-          console.log( user.fname)
-          console.log( user.lname)
-          console.log( user.email)
-          console.log(user.password)
-          axios.post("http://localhost:8081/account/register",user)
-           .then((response) => {
-            console.log(response.data);
-          },(error) => {
-            console.log(error);
-          });
+
+
+    let history = useHistory();
+    const onSubmit = (values, props) => {
+        const user = {
+            firstname: values.firstname,
+            lastname: values.lastname,
+            email: values.email,
+            password: values.password
+        }
+        
+        console.log(user)
+        axios.post("http://localhost:8081/account/register", user)
+            .then((response) => {
+                var res = response.status;
+                console.log(response.data)
+                console.log(response.status)
+                if (res === 200) {
+                    alert("Successfully registered")
+                    history.push('/login');
+                }
+
+            })
+            .catch((error) => {
+                if (error.response.status === 400) {
+                    console.log(error.response.data.message);
+                    alert("Email already exist")
+
+                    props.resetForm()
+                }
+                else
+                    alert("Something went wrong")
+                console.log(error)
+            });
+
+
+
     }
     const validationSchema = Yup.object().shape({
-        fname: Yup.string()
-        //.min(2, "Its too short")
-        .required("Required"),
-        lname: Yup.string().required("Required"),
+        firstname: Yup.string()
+            //.min(2, "Its too short")
+            .required("Required"),
+        lastname: Yup.string().required("Required"),
         email: Yup.string().email("Enter valid email").required("Required"),
         password: Yup.string()
             .matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
@@ -58,28 +85,27 @@ const Register = () => {
                     </Grid>
                     <h2 style={headStyle} >
                         Register
-                </h2>
+                    </h2>
                     <Typography variant='caption'>
                         Please fill this form to create an account!
-                </Typography>
+                    </Typography>
                 </Grid>
                 <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                     {(props) => (
                         <Form style={formStyle}>
 
-                            <Field as={TextField} fullWidth label='First Name' name='fname' value={props.values.fname}
-                                required error={props.errors.fname && props.touched.fname}
-                                onChange={props.handleChange} helperText={<ErrorMessage name='fname' />} />
-                            <Field as={TextField} fullWidth label='Last Name' name='lname' required error={props.errors.lname && props.touched.lname}
-                                value={props.values.lname} onChange={props.handleChange} helperText={<ErrorMessage name='lname' />} />
+                            <Field as={TextField} fullWidth label='First Name' name='firstname' value={props.values.firstname}
+                                required error={props.errors.firstname && props.touched.firstname}
+                                onChange={props.handleChange} helperText={<ErrorMessage name='firstname' />} />
+                            <Field as={TextField} fullWidth label='Last Name' name='lastname' required error={props.errors.lastname && props.touched.lastname}
+                                value={props.values.lastname} onChange={props.handleChange} helperText={<ErrorMessage name='lastname' />} />
                             <Field as={TextField} fullWidth label='Email' type='email' required error={props.errors.email && props.touched.email}
                                 name='email' value={props.values.email} onChange={props.handleChange} helperText={<ErrorMessage name='email' />} />
                             <Field as={TextField} fullWidth label='Password' type='password' required error={props.errors.password && props.touched.password}
                                 value={props.values.password} onChange={props.handleChange} name='password' helperText={<ErrorMessage name='password' />} />
                             <Field as={TextField} fullWidth label='Confirm Password' required error={props.errors.confirmpassword && props.touched.confirmpassword}
                                 value={props.values.confirmpassword} onChange={props.handleChange} name='confirmpassword' helperText={<ErrorMessage name='confirmpassword' />} />
-                            <Button type='submit' variant='contained' color='primary' style={marginTop} align='center'>Create</Button>
-
+                            <Button type='submit' variant='contained' color='primary' style={marginTop} align='center'>Register</Button>
                         </Form>
                     )}
                 </Formik>
