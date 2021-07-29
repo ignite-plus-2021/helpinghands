@@ -43,8 +43,6 @@ const PastEvents = (props) => {
     const event = "Past event"
     useEffect(() => {
         axios.get('http://localhost:8081/account/events/getEventsList/false/Weekend event')
-        //('http://localhost:8081/account/events/getEvents/'.concat('/isFutureEvent').concat('past'))
-        //(`http://localhost:8081/account/events/getEventsList/isFutureEvent${past}/eventTypes${event}`)
         .then(response => {
                 console.log(response)
                 setPevent(response.data)
