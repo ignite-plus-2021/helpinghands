@@ -12,8 +12,8 @@ const useStyles = makeStyles({
         '&:hover':{
             backgroundColor:"#EBF5FB",
         }
-    }
-    ,button:{
+    },
+    button:{
         color:"primary",
         '&:hover':{
             backgroundColor:"#2471A3",
@@ -27,7 +27,7 @@ const PastEvents = (props) => {
     const headStyle = {margin:'0', fontFamily:'serif', color:'blue'}
     const btnStyle = {margin:'8px 0'}
     const logoStyle = {height:98, width:128}
-    
+    //const imgStyle = {height:'100px', width:'180px'}
     //const stepperStyle = {}
 
 
@@ -86,8 +86,6 @@ const PastEvents = (props) => {
                                                 <br></br>
                                                 <b>{post.name}</b>
                                                 <br></br>
-                                                Event ID: {post.event_id}
-                                                <br></br>
                                                 Venue: {post.venue}
                                                 <br></br>
                                                 Date: {moment(post.start_time).format('MMMM Do YYYY')}
@@ -96,6 +94,7 @@ const PastEvents = (props) => {
                                                 <br></br>
                                                 End-Time: {moment(post.end_time).format('h:mm a')}
                                                 <br></br>
+                                                About: {post.description}
                                             </p>
                                             
                                         </Grid>
@@ -107,13 +106,11 @@ const PastEvents = (props) => {
                 </Grid>
                 <br></br>
                 <br></br>
-                <br></br>
                 <Grid align="right">
                     <Button style={btnStyle} color='primary' variant='contained'>Go To Home Page</Button>
                 </Grid>
             </Box>
         </Box>
-
     )
 }
 
