@@ -95,6 +95,7 @@ const PastEvents = (props) => {
                                                 End-Time: {moment(post.end_time).format('h:mm a')}
                                                 <br></br>
                                                 About: {post.description}
+                                                <br></br>
                                             </p>
                                             
                                         </Grid>
