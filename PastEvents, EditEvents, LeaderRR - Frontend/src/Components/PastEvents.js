@@ -93,11 +93,12 @@ const PastEvents = (props) => {
                                             </Tooltip>
                                         </Grid>
                                         <Grid item xs={6} style={gridStyle}>
-                                        <Typography style={{textTransform: "uppercase"}} align="center">
-                                            <b>{post.name}</b>
-                                        </Typography>
+                                            <Typography style={{textTransform: "uppercase"}} align="center">
+                                                <b>{post.name}</b>
+                                            </Typography>
+
                                             <p align="left">
-                                                <br />
+                                                
                                                 <b>Venue:</b> {post.venue}
                                                 <br />
                                                 <b>Date:</b> {moment(post.start_time).format('MMMM Do YYYY')}
@@ -109,7 +110,6 @@ const PastEvents = (props) => {
                                                 <b>Description:</b> {post.description}
                                                 <br />
                                             </p>
-                                            
                                         </Grid>
                                     </Grid>
                                 </CardContent>
