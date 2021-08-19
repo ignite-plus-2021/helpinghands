@@ -82,7 +82,7 @@ const LeaderRR = () => {
                 <Grid align='center'>
                     <br />
                     <Typography variant='h4' style={headStyle}>
-                        Rewards &amp; Recognition
+                        <b>Rewards &amp; Recognition</b>
                     </Typography>
                 </Grid>
                 
@@ -96,7 +96,7 @@ const LeaderRR = () => {
                             <Paper style={paperStyle} elevation={15}>
                                 
                                         <p align="left">
-                                            <Typography variant='h5' align="center">
+                                            <Typography style={{textTransform: "uppercase"}} variant='h6' align="center">
                                                 <b>{postOne.name}</b>
                                             </Typography>
                                             <br />
@@ -110,7 +110,7 @@ const LeaderRR = () => {
                                                             Participant1
                                                         </Typography>
                                                     </CardContent>
-                                                    &emsp;&emsp;&emsp;&emsp;<Checkbox color='primary' inputProps = {{'aria-label': 'uncontrolled-checkbox'}} />
+                                                    <Checkbox color='primary' inputProps = {{'aria-label': 'uncontrolled-checkbox'}} />
                                                 </Card>
 
                                                 <Card>
@@ -121,7 +121,7 @@ const LeaderRR = () => {
                                                             Participant2
                                                         </Typography>
                                                     </CardContent>
-                                                    &emsp;&emsp;&emsp;&emsp;<Checkbox color='primary' inputProps = {{'aria-label': 'uncontrolled-checkbox'}} />
+                                                    <Checkbox color='primary' inputProps = {{'aria-label': 'uncontrolled-checkbox'}} />
                                                 </Card>
                                                 
                                                 <Card>
@@ -131,7 +131,7 @@ const LeaderRR = () => {
                                                             Participant3
                                                         </Typography>
                                                     </CardContent>
-                                                    &emsp;&emsp;&emsp;&emsp;<Checkbox color='primary' inputProps = {{'aria-label': 'uncontrolled-checkbox'}} />
+                                                    <Checkbox color='primary' inputProps = {{'aria-label': 'uncontrolled-checkbox'}} />
                                                 </Card>
                                             </div>                    
                                         </p>
