@@ -184,18 +184,9 @@ const EditEvents = (props) => {
                                                                         }}
                                                                     />
                                                                     <br /><br />
-                                                                    <TextField
-                                                                        id="datetime-local"
-                                                                        fullWidth
-                                                                        label="Start date and time"
-                                                                        type="datetime-local"
-                                                                        format="HH:mm a"
-                                                                        disablePast
-                                                                        defaultValue={moment(post.start_time)}
-                                                                        onChange={handleDateChange}
-                                                                        required />
+                                                                    <Field as={TextField} fullWidth label="Start Time" name="starttime" value={moment(post.start_time).format('h:mm a')} required />
                                                                     <br /><br />
-                                                                    <Field as={TextField} fullWidth label="End-Time" name="endtime" value={moment(post.end_time).format('h:mm a')} required />
+                                                                    <Field as={TextField} fullWidth label="End Time" name="endtime" value={moment(post.end_time).format('h:mm a')} required />
                                                                     <br />
                                                                 </p>
                                                             </Form>
