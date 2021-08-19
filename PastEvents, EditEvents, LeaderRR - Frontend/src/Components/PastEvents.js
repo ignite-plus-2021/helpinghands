@@ -59,6 +59,7 @@ const PastEvents = (props) => {
     },[event])
 
     const classes = useStyles();
+    
     return(
         <Box>
             <AppBar position="sticky">
@@ -92,7 +93,7 @@ const PastEvents = (props) => {
                                             </Tooltip>
                                         </Grid>
                                         <Grid item xs={6} style={gridStyle}>
-                                        <Typography align="center">
+                                        <Typography style={{textTransform: "uppercase"}} align="center">
                                             <b>{post.name}</b>
                                         </Typography>
                                             <p align="left">
