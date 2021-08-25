@@ -10,9 +10,9 @@ function App() {
 	return (
 		<Router>
 			<Switch>
-				<Route exact path='/pastevents' component={PastEvents} />
-		        <Route exact path='/editevents' component={EditEvents} />
-        		<Route exact path='/leaderrr' component={LeaderRR} />
+				<Route exact path = '/pastevents' component = {PastEvents} />
+		        	<Route exact path = '/editevents' component = {EditEvents} />
+        			<Route exact path = '/leaderrr' component = {LeaderRR} />
 		    </Switch>
 		</Router>
 	);
